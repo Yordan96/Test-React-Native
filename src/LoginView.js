@@ -17,7 +17,7 @@ export default class LoginView extends Component<{}> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Bienvenido a mi aplicacion
+          Bienvenido a mi app
         </Text>
 
       </View>
