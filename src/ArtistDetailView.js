@@ -11,7 +11,8 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
-  Image
+  Image,
+  Text
 } from 'react-native';
 
 import ArtistBox from './artistBox';
@@ -23,17 +24,30 @@ export default class ArtistDetailView extends Component<{}> {
 state = {
   comments: []
 }
+componentDidMount(){
+    this.getArtistCommentRef().on('child_added',this.addComment );
+}
 
+componentWillUnmount() {
+    this.getArtistCommentRef().off('child_added',this.addComment );
+}
+addComment = (data) => {
+  const comment = data.val()
+  this.setState({
+    comments: this.state.comments.concat(comment)
+  })
+}
   handleSend = () => {
      const {text} = this.state
      const artistCommentsRef = this.getArtistCommentRef()
      var newCommentRef = artistCommentsRef.push();
       newCommentRef.set({text });
+      this.setState({text:''})
   }
 
   getArtistCommentRef = () => {
       const {id} = this.props.artist
-      return fireDatabase.ref('comments/'+id)
+      return fireDatabase.ref(`comments/'${id}`)
   }
 
   handleTextChange = (text) => this.setState({text})
@@ -45,10 +59,12 @@ state = {
     return (
       <View style={styles.container}>
        <ArtistBox artist={artist}/>
+       <Text style={styles.header}>Comentarios</Text>
        <CommentList comments={comments}/>
        <View style={styles.inputcontainer}>
          <TextInput
             style={styles.input}
+            value={this.state.text}
             placeholder="Opina sobre este artista"
             onChangeText={this.handleTextChange}
          />
@@ -68,11 +84,13 @@ const styles = StyleSheet.create({
     paddingTop:70,
 
   },
+  header:{
+    fontSize:20,
+    paddingHorizontal: 15,
+    marginVertical:20,
+  },
   inputcontainer:{
-    position:'absolute',
-    bottom:0,
-    right:0,
-    left:0,
+
     height:50,
     backgroundColor:'white',
     paddingHorizontal:10,
