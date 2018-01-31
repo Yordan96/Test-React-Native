@@ -15,11 +15,16 @@ import {
 } from 'react-native';
 
 import ArtistBox from './artistBox';
+//import CommentList from './CommentList';
 import {getArtist} from './api-client';
 import { fireDatabase, firebaseAuth } from './firebase'
+import CommentList from './CommentList'
 export default class ArtistDetailView extends Component<{}> {
-  handleSend = () => {
+state = {
+  comments: []
+}
 
+  handleSend = () => {
      const {text} = this.state
      const artistCommentsRef = this.getArtistCommentRef()
      var newCommentRef = artistCommentsRef.push();
@@ -36,9 +41,11 @@ export default class ArtistDetailView extends Component<{}> {
   render() {
     const send = 'http://wfarm4.dataknet.com/static/resources/icons/set110/a03c52ec.png';
     const artist= this.props.artist
+    const {comments} =this.state
     return (
       <View style={styles.container}>
        <ArtistBox artist={artist}/>
+       <CommentList comments={comments}/>
        <View style={styles.inputcontainer}>
          <TextInput
             style={styles.input}
