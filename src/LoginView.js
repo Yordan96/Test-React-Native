@@ -10,6 +10,8 @@ import {
   View,
   Button,
   Text,
+  ImageBackground,
+  Image
 } from 'react-native';
 import  FBSDK, {
   LoginButton,
@@ -60,20 +62,22 @@ export default class LoginView extends Component<{}> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ImageBackground source={require('./12.jpg')} style={styles.container}>
         <Text style={styles.welcome}>
           Bienvenido a mi applicación
         </Text>
-        <Text style={styles.welcome}>
+        <Text style={styles.welcome2}>
           {this.state.credentials && this.state.credentials.displayName}
         </Text>
-        <Button onPress={this.handleButtonPress} title="seguir" />
+        <Image source={require('./cian.png')} style={styles.logo}/>
+        <Button style={styles.btnseguir}
+        onPress={this.handleButtonPress} title="seguir" />
         <LoginButton
           readPermissions={["public_profile",'email']}
           onLoginFinished={this.handleLoginFinished }
           onLogoutFinished={() => alert("logout.")}/>
 
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -81,6 +85,8 @@ export default class LoginView extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: null,
+    height:null,
     backgroundColor: 'lightgray',
     justifyContent:'center',
     alignItems:'center'
@@ -88,6 +94,20 @@ const styles = StyleSheet.create({
   welcome:{
     fontSize:24,
     fontWeight:'600',
-    marginBottom:20
+    marginBottom:20,
+    color: 'lightgray'
+  },
+  welcome2:{
+    fontSize:19,
+    marginBottom:10,
+    color: 'lightgray'
+  },
+  logo:{
+    width: 150,
+    height:60,
+    marginBottom:10,
+  },
+  btnseguir:{
+    marginBottom:17,
   }
 });
