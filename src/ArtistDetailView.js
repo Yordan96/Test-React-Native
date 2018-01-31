@@ -39,9 +39,14 @@ addComment = (data) => {
 }
   handleSend = () => {
      const {text} = this.state
+     const {uid, photoURL} = firebaseAuth.currentUser
      const artistCommentsRef = this.getArtistCommentRef()
      var newCommentRef = artistCommentsRef.push();
-      newCommentRef.set({text });
+      newCommentRef.set({
+        text,
+        userPhoto: photoURL,
+        uid,
+       });
       this.setState({text:''})
   }
 
@@ -59,7 +64,6 @@ addComment = (data) => {
     return (
       <View style={styles.container}>
        <ArtistBox artist={artist}/>
-       <Text style={styles.header}>Comentarios</Text>
        <CommentList comments={comments}/>
        <View style={styles.inputcontainer}>
          <TextInput
