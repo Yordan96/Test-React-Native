@@ -17,7 +17,7 @@ import  FBSDK, {
 } from'react-native-fbsdk'
 import {Actions} from 'react-native-router-flux';
 import * as firebase from "firebase";
-
+//import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const config = {
   apiKey: "AIzaSyA8Mo41B_NOu_9vvxYowzvQf4GowBgxK0o",
   authDomain: "platzimusic-1a969.firebaseapp.com",
